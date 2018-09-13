@@ -13,3 +13,18 @@ variable "bucket-name" {
 
 
 
+variable "ami_id" {
+  default = "ami-0ff8a91507f77f867"
+}
+
+variable "instance_type" {
+  default = "t2.micro" 
+}
+
+variable "key-name" {
+  default = "lucas-duarte"
+}
+
+variable "instance_name" {
+  default = "My_Application_ec2"
+}

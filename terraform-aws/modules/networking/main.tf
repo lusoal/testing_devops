@@ -22,7 +22,7 @@ resource "aws_internet_gateway" "gw" {
 
 
 resource "aws_route_table" "pub_a" {
-  vpc_id = "${aws_vpc.default.id}"
+  vpc_id = "${aws_vpc.default_vpc.id}"
 
   route {
     cidr_block = "0.0.0.0/0"
@@ -37,4 +37,32 @@ resource "aws_route_table" "pub_a" {
 resource "aws_route_table_association" "a" {
   subnet_id      = "${aws_subnet.pub_subnet_1a.id}"
   route_table_id = "${aws_route_table.pub_a.id}"
+}
+
+
+resource "aws_security_group" "allow_ssh_http" {
+  name        = "allow_ssh_http"
+  description = "Allow all inbound traffic"
+  vpc_id      = "${aws_vpc.default_vpc.id}"
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "TCP"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+   ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "TCP"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port       = 0
+    to_port         = 0
+    protocol        = "-1"
+    cidr_blocks     = ["0.0.0.0/0"]
+  }
 }

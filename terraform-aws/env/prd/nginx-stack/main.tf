@@ -1,13 +1,13 @@
 provider "aws" {
-  region = "${var.region}"
+  region = "us-east-1"
 }
 
 terraform {
   backend "s3" {
     encrypt = true
-    bucket  = "${var.bucket-name}"
-    region  = "${var.region}"
-    key     = "${var.bucket-folder}/terraform.tfstate"
+    bucket  = "bucket-nginx-test"
+    region  = "us-east-1"
+    key     = "nginx-folder/terraform.tfstate"
   }
 }
 
@@ -17,13 +17,14 @@ module "aws_networking" {
   pub_subnet_cidr     = "10.0.0.0/24"
 }
 
+#coleta security group e vpc id do output do modulo Networking
 module "ec2_instance" {
   source              = "../../../modules/ec2"
-  ami_id              = ""
-  instance_type       = ""
-  key_name            = ""
+  ami_id              = "${var.ami_id}"
+  instance_type       = "${var.instance_type}"
+  key_name            = "${var.key-name}"
   subnet_id_instance  = "${module.aws_networking.subnet_id}"
   public_ip           = true
-  ec2_security_groups = ""
-  instance_name       = ""
+  ec2_security_groups = ["${module.aws_networking.sg_id}"]
+  instance_name       = "${var.instance_name}"
 }
