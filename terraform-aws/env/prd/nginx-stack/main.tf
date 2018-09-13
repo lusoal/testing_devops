@@ -11,13 +11,19 @@ terraform {
   }
 }
 
+module "aws_networking" {
+  source              = "../../../modules/networking"
+  vpc_cidr            = "10.0.0.0/16"
+  pub_subnet_cidr     = "10.0.0.0/24"
+}
+
 module "ec2_instance" {
   source              = "../../../modules/ec2"
   ami_id              = ""
   instance_type       = ""
   key_name            = ""
-  subnet_id_instance  = ""
-  public_ip           = ""
+  subnet_id_instance  = "${module.aws_networking.subnet_id}"
+  public_ip           = true
   ec2_security_groups = ""
   instance_name       = ""
 }
