@@ -28,3 +28,7 @@ variable "key-name" {
 variable "instance_name" {
   default = "My_Application_ec2"
 }
+
+variable "path_user_data" {
+  default = "./user-data.sh"
+}

@@ -14,5 +14,7 @@ variable "ec2_security_groups" {
 
 variable "instance_name" {}
 
+variable "path_user_data" {}
+
 
 

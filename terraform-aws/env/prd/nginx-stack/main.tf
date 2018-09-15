@@ -25,6 +25,7 @@ module "ec2_instance" {
   key_name            = "${var.key-name}"
   subnet_id_instance  = "${module.aws_networking.subnet_id}"
   public_ip           = true
+  path_user_data      = "user-data.sh"
   ec2_security_groups = ["${module.aws_networking.sg_id}"]
   instance_name       = "${var.instance_name}"
 }
