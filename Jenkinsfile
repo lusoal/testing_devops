@@ -30,12 +30,12 @@ node {
     stage ('Build Dockefile with most recent Build Number'){
         sh 'cd '+ APP_PATH +' && sudo docker build -t lusoal/nginx-test:'+BUILD_NUMBER+' .'
         sh 'sudo docker push lusoal/nginx-test:'+BUILD_NUMBER
-        
+
         sh 'sudo docker tag lusoal/nginx-test:'+BUILD_NUMBER + ' lusoal/nginx-test'
         sh 'sudo docker push lusoal/nginx-test'
     }
 
     stage ('Deploy container in remote Host') {
-        sh 'cd ' + APP_PATH + '/ansible && ansible-playbook -i prd deploy.yml --private-key=/opt/chaves/lucas-duarte.pem'
+        sh 'cd ' + APP_PATH + '/ansible && /usr/local/bin/ansible-playbook -i prd deploy.yml --private-key=/opt/chaves/lucas-duarte.pem'
     }
 }
