@@ -36,6 +36,6 @@ node {
     }
 
     stage ('Deploy container in remote Host') {
-        sh 'cd ' + APP_PATH + '/ansible && /usr/local/bin/ansible-playbook -i prd deploy.yml --private-key=/opt/chaves/lucas-duarte.pem'
+        sh 'cd ' + APP_PATH + '/ansible && /usr/local/bin/ansible-playbook -i prd deploy.yml --private-key=/opt/chaves/lucas-duarte.pem --extra-vars "build_number='+BUILD_NUMBER+'"'
     }
 }
