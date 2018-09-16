@@ -1,0 +1,26 @@
+---
+- name: Install docker-py
+  shell: 'pip install docker-py'
+  become: True
+
+- name: Stop application Container
+  docker_container:
+    name: "{{ docker.image_name }}"
+    state: stopped
+  ignore_errors: True
+
+- name: remove container
+  docker_container:
+    name: "{{ docker.image_name }}"
+    state: absent
+  ignore_errors: True
+
+- name: Starting Container
+  docker_container:
+    name: "{{ docker.image_name }}"
+    image: "{{ docker.image }}"
+    state: started
+    ports:
+     - "80:80"
+    #env:
+    #    SECRET_KEY: ssssh

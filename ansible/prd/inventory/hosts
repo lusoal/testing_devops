@@ -1,0 +1,7 @@
+[deploy]
+18.214.25.95
+
+[tag_Name_My_Application_ec2]
+
+[deploy_intern:children]
+tag_Name_My_Application_ec2

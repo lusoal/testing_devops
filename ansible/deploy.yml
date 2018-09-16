@@ -1,0 +1,8 @@
+---
+  - hosts: deploy
+    serial: 1
+    user: ec2-user
+    become: yes
+
+    roles:
+      - deploy

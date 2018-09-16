@@ -1,0 +1,3 @@
+docker:
+  image_name: nginx
+  image: lusoal/nginx-test
